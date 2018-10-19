@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ignored namespaced xml Check the document shot 1`] = `
+Object {
+  "empty": "",
+  "items": Object {
+    "item": Array [
+      Object {
+        "id": 2,
+        "name": "Item Name",
+        "val": 3,
+      },
+    ],
+  },
+  "name": Object {
+    "": "Name",
+    "a": "1",
+  },
+}
+`;
+
+exports[`local namespaced xml Check the document shot 1`] = `
+Object {
+  "empty": "",
+  "name": Object {
+    "": "Name",
+    "ns3:a": "1",
+  },
+  "ns2:items": Object {
+    "item": Array [
+      Object {
+        "id": 2,
+        "ns2:name": "Item Name",
+        "ns2:val": 3,
+      },
+    ],
+  },
+}
+`;
+
+exports[`real namespaced xml Check the document shot 1`] = `
+Object {
+  "empty": "",
+  "m:items": Object {
+    "item": Array [
+      Object {
+        "id": 2,
+        "m:name": "Item Name",
+        "m:val": 3,
+      },
+    ],
+  },
+  "name": Object {
+    "": "Name",
+    "ns3:a": "1",
+  },
+}
+`;

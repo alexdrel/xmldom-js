@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rss Check the document shot 1`] = `
+Object {
+  "item": Array [
+    Object {
+      "media:comment": "Item 1 Comment",
+      "media:content": Object {
+        "url": "http://example.com/1.mp4",
+      },
+      "media:thumbnail": Object {
+        "url": "http://example.com/1.jpg",
+      },
+      "title": "Item 1",
+    },
+    Object {
+      "media:comment": "Item 2 Comment",
+      "media:content": Object {
+        "url": "http://example.com/2.mp4",
+      },
+      "media:thumbnail": Object {
+        "url": "http://example.com/2.jpg",
+      },
+      "title": "Item 2",
+    },
+    Object {
+      "media:comment": "Item 3 Comment",
+      "media:content": Object {
+        "url": "http://example.com/3.mp4",
+      },
+      "media:thumbnail": Object {
+        "url": "http://example.com/3.jpg",
+      },
+      "title": "Item 3",
+    },
+  ],
+  "title": "MRSS Title",
+}
+`;

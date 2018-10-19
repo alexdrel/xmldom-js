@@ -1,0 +1,11 @@
+tests
+examples
+webpack*.*
+karma.*
+jest.*
+.git*
+.editor*
+.vscode
+coverage
+__tests__
+

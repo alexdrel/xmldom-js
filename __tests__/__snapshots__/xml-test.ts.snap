@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic xml Check the document shot 1`] = `
+Object {
+  "empty": "",
+  "empty1": "",
+  "item": Array [
+    Object {
+      "id": 2,
+      "name": "Item Name",
+    },
+  ],
+  "name": Object {
+    "": "Name",
+    "a": "1",
+  },
+}
+`;
