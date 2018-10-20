@@ -1,4 +1,4 @@
-import { content, string, array, readXML, attribute, prefixNamespace } from "../src/xmldom-js";
+import { content, string, readXML, attribute, prefixNamespace } from "../src/xmldom-js";
 
 
 const rssString = `<?xml version='1.0' encoding='UTF-8'?>
@@ -40,13 +40,13 @@ const schema = {
   rss: {
     channel: {
       title: content(string),
-      item: array({
+      item: [{
         title: content(string),
         "media:content": { url: attribute() },
         "media:thumbnail": { url: attribute(string) },
         "media:nope": { url: attribute(string) },
         "media:comment": content(string)
-      })
+      }]
     }
   }
 };

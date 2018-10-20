@@ -1,14 +1,5 @@
+export const string = (a: string) => a;
 
-export function string(a: string) {
-  return a;
-}
-
-class ArrayNode {
-  constructor(public schema: object) { }
-}
-export function array(p: any) {
-  return new ArrayNode(p);
-}
 type Parser = (s: string) => any;
 class ContentNode {
   constructor(public parser: Parser) { }
@@ -39,7 +30,6 @@ export function namespaces(def: string, nsmap: { [prefix: string]: string }): Na
   }
 }
 
-
 function findMap<T extends Element | Attr>(list: ArrayLike<T>, name: string, ns: NameResolver, func: (e: T) => void, once = true) {
   for (let i = 0; i < list.length; i++) {
     if (ns(name, list[i])) {
@@ -50,7 +40,6 @@ function findMap<T extends Element | Attr>(list: ArrayLike<T>, name: string, ns:
     }
   }
 }
-
 
 export function readXML(xml: Element | Document, schema: any, ns: NameResolver = ignoreNamespace): any {
   const json: any = {};
@@ -65,9 +54,9 @@ export function readXML(xml: Element | Document, schema: any, ns: NameResolver =
       }
     } else if (s instanceof AttributeNode && xml instanceof Element) {
       findMap(xml.attributes, k, ns, e => v = s.parser(e.textContent as string));
-    } else if (s instanceof ArrayNode) {
+    } else if (Array.isArray(s)) {
       v = [];
-      findMap(xml.children, k, ns, e => v.push(readXML(e, s.schema, ns)), false);
+      findMap(xml.children, k, ns, e => v.push(readXML(e, s[0], ns)), false);
     } else /* Structured element */ {
       findMap(xml.children, k, ns, e => v = readXML(e, s, ns));
     }

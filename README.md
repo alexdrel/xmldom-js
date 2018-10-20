@@ -33,17 +33,17 @@ To read the data from the following XML
 Data extraction schema:
  
  ```js 
-import { array, attribute, content, string, readXML, prefixNamespace } from "xmldom-js";
+import { attribute, content, string, readXML, prefixNamespace } from "xmldom-js";
 
 var rssSchema = {
   rss: {
     channel: {
       title: content(string),
-      item: array({
+      item: [{
         title: content(string),
         "media:content": { url: attribute() },
         "media:comment": content(string)
-      })
+      }]
     }
   }
 };

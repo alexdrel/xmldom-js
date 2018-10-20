@@ -2,7 +2,7 @@
   <head>
   </head>
   <script type="module">
-    import { attribute, content, string, array, readXML, prefixNamespace } from "../dist/xmldom-js.js";
+    import { attribute, content, string, readXML, prefixNamespace } from "../dist/xmldom-js.js";
     const rssString =
     `<?xml version='1.0' encoding='UTF-8'?>
     <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
@@ -43,12 +43,12 @@
       rss: {
         channel: {
           title: content(string),
-          item: array({
+          item: [{
             title: content(string),
             "media:content": { url: attribute() },
             "media:thumbnail": { url: attribute() },
             "media:comment": content(string)
-          })
+          }]
         }
       }
     };

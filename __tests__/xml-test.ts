@@ -1,4 +1,4 @@
-import { content, string, array, readXML, attribute } from "../src/xmldom-js";
+import { content, string, readXML, attribute } from "../src/xmldom-js";
 
 const domParser = new DOMParser();
 
@@ -26,11 +26,11 @@ describe("basic xml", () => {
         empty: content(),
         empty1: content(),
         missing: content(),
-        item: array({
+        item: [{
           name: content(string),
           id: attribute(x => +x),
           na: attribute(),
-        })
+        }]
       }
     }
   );

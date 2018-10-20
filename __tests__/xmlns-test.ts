@@ -1,4 +1,4 @@
-import { content, string, array, readXML, attribute, ignoreNamespace, prefixNamespace, namespaces } from "../src/xmldom-js";
+import { content, string, readXML, attribute, ignoreNamespace, prefixNamespace, namespaces } from "../src/xmldom-js";
 
 const xmlString = `<?xml version='1.0' encoding='UTF-8'?>
     <root xmlns="//ns1" xmlns:ns3="//ns3">
@@ -25,12 +25,12 @@ describe("local namespaced xml", () => {
         empty: content(),
         missing: content(),
         "ns2:items": {
-          item: array({
+          item: [{
             "ns2:name": content(string),
             "ns2:val": attribute(x => +x),
             id: attribute(x => +x),
             na: attribute()
-          })
+          }]
         }
       }
     },
@@ -67,11 +67,11 @@ describe("ignored namespaced xml", () => {
         empty: content(),
         missing: content(),
         items: {
-          item: array({
+          item: [{
             name: content(string),
             id: attribute(x => +x),
             val: attribute(x => +x),
-          })
+          }]
         }
       }
     },
@@ -100,12 +100,12 @@ describe("real namespaced xml", () => {
         empty: content(),
         missing: content(),
         "m:items": {
-          item: array({
+          item: [{
             "m:name": content(string),
             id: attribute(x => +x),
             "m:val": attribute(x => +x),
             na: attribute()
-          })
+          }]
         }
       }
     },
