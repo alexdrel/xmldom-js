@@ -1,6 +1,6 @@
 {
   "name": "xmldom-js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Lightweight schema-based XML data extraction to plain objects (JSON)",
   "main": "dist/cjs/xmldom-js.js",
   "types": "dist/xmldom-js.d.ts",

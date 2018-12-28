@@ -43,6 +43,7 @@ function findMap<T extends Element | Attr>(list: ArrayLike<T>, name: string, ns:
 
 export function readXML(xml: Element | Document, schema: any, ns: NameResolver = ignoreNamespace): any {
   const json: any = {};
+  const children = xml.children || /* IE */ (xml.childNodes as any as HTMLCollection);
   Object.keys(schema).forEach(k => {
     const s = schema[k];
     let v: any;
@@ -50,15 +51,15 @@ export function readXML(xml: Element | Document, schema: any, ns: NameResolver =
       if (k === "") {
         v = s.parser(xml.textContent as string);
       } else {
-        findMap(xml.children, k, ns, e => v = s.parser(e.textContent as string));
+        findMap(children, k, ns, e => v = s.parser(e.textContent as string));
       }
     } else if (s instanceof AttributeNode && xml instanceof Element) {
       findMap(xml.attributes, k, ns, e => v = s.parser(e.textContent as string));
     } else if (Array.isArray(s)) {
       v = [];
-      findMap(xml.children, k, ns, e => v.push(readXML(e, s[0], ns)), false);
+      findMap(children, k, ns, e => v.push(readXML(e, s[0], ns)), false);
     } else /* Structured element */ {
-      findMap(xml.children, k, ns, e => v = readXML(e, s, ns));
+      findMap(children, k, ns, e => v = readXML(e, s, ns));
     }
     if (v !== undefined) {
       json[k] = v;
