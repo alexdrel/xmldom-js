@@ -5,6 +5,8 @@
     "strict": true,
     "esModuleInterop": true,
     "outDir": "../dist",
-    "declaration": true
+    "moduleResolution": "node", // Fixes jest v24 https://github.com/facebook/jest/issues/8218
+    "lib": [ "dom", "es2015" ],
+    "declaration": true,
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "xmldom-js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Lightweight schema-based XML data extraction to plain objects (JSON)",
   "main": "dist/cjs/xmldom-js.js",
   "types": "dist/xmldom-js.d.ts",
@@ -20,12 +20,12 @@
     "url": "https://github.com/alexdrel/xmldom-js.git"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.5",
+    "@types/jest": "^24.0.15",
     "http-server": "^0.11.1",
-    "jest": "^23.6.0",
-    "rimraf": "^2.6.2",
-    "ts-jest": "^23.10.4",
-    "typescript": "^3.1.3"
+    "jest": "^24.8.0",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
   },
   "scripts": {
     "examples": "tsc -p src -w & http-server",

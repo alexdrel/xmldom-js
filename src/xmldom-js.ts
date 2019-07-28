@@ -1,18 +1,28 @@
 export const string = (a: string) => a;
 
-type Parser = (s: string) => any;
-class ContentNode {
-  constructor(public parser: Parser) { }
+type Parser<T> = (s: string) => T;
+class ContentNode<T> {
+  constructor(public parser: Parser<T>) { }
 }
-export function content(p: Parser = string) {
-  return new ContentNode(p);
+export function content<T = string>(p: Parser<T> = string as any) {
+  return new ContentNode<T>(p);
 }
-class AttributeNode {
-  constructor(public parser: Parser) { }
+
+class AttributeNode<T> {
+  constructor(public parser: Parser<T>) { }
 }
-export function attribute(p: Parser = string) {
-  return new AttributeNode(p);
+
+export function attribute<T = string>(p: Parser<T> = string as any) {
+  return new AttributeNode<T>(p);
 }
+
+export type Schema<T> = {
+  [P in keyof T]: Schema<T[P]> | (T[P] extends object ? never : { parser: (v: string) => T[P] });
+};
+
+export type SchemaInternal = {
+  [p: string]: SchemaInternal | { parser: (v: string) => any };
+};
 
 export type NameResolver = (jn: string, e: Element | Attr) => boolean;
 
@@ -41,11 +51,11 @@ function findMap<T extends Element | Attr>(list: ArrayLike<T>, name: string, ns:
   }
 }
 
-export function readXML(xml: Element | Document, schema: any, ns: NameResolver = ignoreNamespace): any {
+export function readXML<T>(xml: Element | Document, schema: Schema<T>, ns: NameResolver = ignoreNamespace): T {
   const json: any = {};
   const children = xml.children || /* IE */ (xml.childNodes as any as HTMLCollection);
   Object.keys(schema).forEach(k => {
-    const s = schema[k];
+    const s = (schema as SchemaInternal)[k];
     let v: any;
     if (s instanceof ContentNode) {
       if (k === "") {
@@ -59,7 +69,7 @@ export function readXML(xml: Element | Document, schema: any, ns: NameResolver =
       v = [];
       findMap(children, k, ns, e => v.push(readXML(e, s[0], ns)), false);
     } else /* Structured element */ {
-      findMap(children, k, ns, e => v = readXML(e, s, ns));
+      findMap(children, k, ns, e => v = readXML(e, s as SchemaInternal, ns));
     }
     if (v !== undefined) {
       json[k] = v;

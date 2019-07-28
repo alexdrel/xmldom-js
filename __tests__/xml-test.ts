@@ -1,13 +1,47 @@
-import { content, string, readXML, attribute } from "../src/xmldom-js";
+import { content, string, readXML, attribute, Schema } from "../src/xmldom-js";
 
 const domParser = new DOMParser();
 
-function xml2json(xmlString: string, schema: any) {
-  return readXML(domParser.parseFromString(xmlString, "text/xml"), schema);
+function xml2json<T>(xmlString: string, schema: Schema<T>) {
+  return readXML(domParser.parseFromString(xmlString, "text/xml"), schema) as T;
 }
 
+interface Data {
+  root: {
+    name: {
+      [""]: string,
+      a: string,
+      na: string
+    },
+
+    empty: string,
+    empty1: string,
+    missing: string,
+    item: {
+      name: string,
+      id: number
+      na: string,
+    }[];
+  }
+}
+
+const schema = {
+  root: {
+    name: { "": content(string), a: attribute(), na: attribute() },
+
+    empty: content(),
+    empty1: content(),
+    missing: content(),
+    item: [{
+      name: content(string),
+      id: attribute(x => +x),
+      na: attribute(),
+    }]
+  }
+};
+
 describe("basic xml", () => {
-  const json = xml2json(
+  const json = xml2json<Data>(
     `<?xml version='1.0' encoding='UTF-8'?>
     <root>
       <empty/>
@@ -19,20 +53,7 @@ describe("basic xml", () => {
 
       <name a="1">Name</name>
     </root>`,
-    {
-      root: {
-        name: { "": content(string), a: attribute(), na: attribute() },
-
-        empty: content(),
-        empty1: content(),
-        missing: content(),
-        item: [{
-          name: content(string),
-          id: attribute(x => +x),
-          na: attribute(),
-        }]
-      }
-    }
+    schema
   );
 
   test("Check the document", () => {
